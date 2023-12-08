@@ -68,7 +68,7 @@ def inventory_ajax(env):
     if env != '*':
         query.add(EqualsOperator("environment", env))
 
-    facts = puppetdb.facts(query=query)
+    facts = puppetdb.fact_contents(query=query)
 
     fact_data = {}
     for fact in facts:
