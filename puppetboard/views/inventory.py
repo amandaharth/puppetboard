@@ -22,9 +22,9 @@ def inventory_facts():
 
     # generate a list of descriptions and a list of fact names
     # from the list of tuples inv_facts.
-    for desc, name in inv_facts:
+    for desc, path in inv_facts:
         headers.append(desc)
-        fact_names.append(name)
+        fact_names.append(path)
 
     return headers, fact_names
 
@@ -62,7 +62,7 @@ def inventory_ajax(env):
 
     query = AndOperator()
     fact_query = OrOperator()
-    fact_query.add([EqualsOperator("name", name) for name in fact_names])
+    fact_query.add([EqualsOperator("path", path) for path in fact_names])
     query.add(fact_query)
 
     if env != '*':
@@ -85,7 +85,7 @@ def inventory_ajax(env):
                 value=fact_value,
             )
 
-        fact_data[fact.node][fact.name] = fact_value
+        fact_data[fact.node][fact.path] = fact_value
 
     total = len(fact_data)
 
